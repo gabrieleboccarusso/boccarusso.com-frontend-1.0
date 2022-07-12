@@ -1,18 +1,10 @@
-document.getElementById("demo").innerHTML =
-"The full URL of this page is:<br>" + window.location.href;
-
-const style = document.getElementsByTagName("head")[0];
-console.log(style);
-style.innerHTML += "<title>TITLE</title>";
-
-
 (function() { 
     console.log("plain JS baby"); 
 
-    document.getElementById("demo").innerHTML =
-    "The full URL of this page is:<br>" + window.location.href;
-
+    // let baseURL = "https://boccarussofrontend.herokuapp.com/";
+    let baseURL = window.location.href;
     const style = document.getElementsByTagName("head")[0];
-    console.log(style);
+    console.log(baseURL.split('/'));
+
     style.innerHTML += "<title>TITLE</title>";
 })();
