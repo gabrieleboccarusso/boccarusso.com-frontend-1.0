@@ -1,8 +1,4 @@
-(function() { 
-    controller();
-})();
-
-// const searchButton = document.getElementById('searchButton');
+// general variables 
 const menuButton = document.getElementById('menuButton');
 const clickEvent = new MouseEvent("click", {
     "view": window,
@@ -23,30 +19,31 @@ function controller() {
         case "":
             main.innerHTML = "";
             main.innerHTML += getAboutMe();
+            homePosts();
             console.log("home");
             break;
         case "projects":
-            // console.log("projects");
             main.innerHTML = "";
             main.innerHTML += "projects";
             break;
         case "tags":
-            console.log("tags");
             main.innerHTML = "";
             main.innerHTML += "tags";
             break;
         case "search":
-                console.log("search");
                 main.innerHTML = "";
                 main.innerHTML += "search: " + splitted[4];
                 break;
         case "post":
-                console.log("post");
                 main.innerHTML = "";
-                main.innerHTML += "post";
+                main.innerHTML += "post: "  + splitted[4];;
                 break;
     }
 }
+
+(function() { 
+    controller();
+})();
 
 function addBaseStyle(style) {
     const title = document.createElement("title");
@@ -89,6 +86,20 @@ function searchPost() {
     controller();
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+// https://developer.mozilla.org/en-US/docs/Web/API/DOMParser
 function getAboutMe() {
     return `
     <h1 class="primary">GABRIELE BOCCARUSSO</h1>
@@ -127,6 +138,14 @@ function getAboutMe() {
                 <a href = "https://github.com/gabrieleboccarusso">github</a> where you can find the source code of my most important projects or useful snippets.
             </p>
         </article>
+    </div>
+    <section class="tiles" id="blog">
+    <div id="spinner-box" class="not-visible"></div>
+    </section>
+    <br>
+    <br>
+    <div style = "display:flex; justify-content: center;" id = "btn-parent">
+        <button id="load-btn">Load more</button>
     </div>
     `
 }
