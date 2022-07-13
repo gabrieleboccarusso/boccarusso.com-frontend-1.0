@@ -1,3 +1,4 @@
+
 (function($) {
 
 	var	$window = $(window),
@@ -142,7 +143,7 @@
 					$menu._hide();
 
 				// Redirect.
-					if (href == '#menu')
+					if (href == '')
 						return;
 
 					window.setTimeout(function() {
@@ -150,10 +151,10 @@
 					}, 350);
 
 			})
-			.append('<a class="close" href="#menu">Close</a>');
+			.append('<a class="close" href="">Close</a>');
 
 		$body
-			.on('click', 'a[href="#menu"]', function(event) {
+			.on('click', '#menuButton', function(event) {
 
 				event.stopPropagation();
 				event.preventDefault();
@@ -162,19 +163,5 @@
 					$menu._toggle();
 
 			})
-			.on('click', function(event) {
-
-				// Hide.
-					$menu._hide();
-
-			})
-			.on('keydown', function(event) {
-
-				// Hide on escape.
-					if (event.keyCode == 27)
-						$menu._hide();
-
-			});
-
 })(jQuery);
 

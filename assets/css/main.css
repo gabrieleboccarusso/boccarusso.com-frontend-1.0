@@ -1,6 +1,15 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
 
+/* a[href="#menu"] */
+html {
+	scroll-behavior: smooth;
+}
+
+.notClick{
+	pointer-events: none;
+}
+
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
 pre, a, abbr, acronym, address, big, cite,
@@ -2888,7 +2897,7 @@ align-items: center;
 						text-transform: uppercase;
 					}
 
-					#header nav ul li a[href="#menu"] {
+					#header nav ul li #menuButton {
 						-webkit-tap-highlight-color: transparent;
 						width: 4em;
 						text-indent: 4em;
@@ -2898,7 +2907,7 @@ align-items: center;
 						white-space: nowrap;
 					}
 
-						#header nav ul li a[href="#menu"]:before, #header nav ul li a[href="#menu"]:after {
+						#header nav ul li #menuButton:before, #header nav ul li #menuButton:after {
 							-moz-transition: opacity 0.2s ease;
 							-webkit-transition: opacity 0.2s ease;
 							-ms-transition: opacity 0.2s ease;
@@ -2915,21 +2924,21 @@ align-items: center;
 							background-size: 2em 2em;
 						}
 
-						#header nav ul li a[href="#menu"]:before {
+						#header nav ul li #menuButton:before {
 							background-image: url("./menu_opened.svg");
 							opacity: 0;
 						}
 
-						#header nav ul li a[href="#menu"]:after {
+						#header nav ul li #menuButton:after {
 							background-image: url("./open_the_menu.svg");
 							opacity: 1;
 						}
 
-						#header nav ul li a[href="#menu"]:hover:before {
+						#header nav ul li #menuButton:hover:before {
 							opacity: 1;
 						}
 
-						#header nav ul li a[href="#menu"]:hover:after {
+						#header nav ul li #menuButton:hover:after {
 							opacity: 0;
 						}
 
@@ -2944,7 +2953,7 @@ align-items: center;
 					top: 0.5em;
 				}
 
-					#header nav ul li a[href="#menu"]:before, #header nav ul li a[href="#menu"]:after {
+					#header nav ul li #menuButton:before, #header nav ul li #menuButton:after {
 						background-size: 1.5em 1.5em;
 					}
 
