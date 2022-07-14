@@ -23,7 +23,8 @@ function controller() {
             break;
         case "projects":
             main.innerHTML = "";
-            main.innerHTML += "projects";
+            main.innerHTML += getProjects();
+            ProjectsView();
             break;
         case "tags":
             main.innerHTML = "";
@@ -174,4 +175,12 @@ function getSelectTag() {
         <ul id="tags" class="actions container-tag">
         </ul>
     `;
+}
+
+function getProjects() {
+    return `
+        <h1>All projects:</h1>
+        <section id="projects" class="tiles">
+        </section>
+    `
 }

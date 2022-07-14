@@ -117,3 +117,38 @@ function options() {
         selectTag.innerHTML += option;
     }
 }
+
+function ProjectsView() {
+    const projectsPlace = document.getElementById('projects');
+
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            const projects = JSON.parse(this.responseText);
+            projects.forEach(appendProjects);
+        }
+    }
+
+    function getProjects() {
+        let api = "https://boccarussoapi.herokuapp.com/projectsDescending";
+        xmlhttp.open("GET", api, true);
+        xmlhttp.send();
+    } getProjects();
+
+    function appendProjects(project) {
+        text = `
+                <article>
+                    <a href="${project.repoLink}">
+                        <h2>${project.title}</h2>
+                        <div class="content">
+                            <p> ${project.intro} </p>
+                        </div>
+                    </a>
+                    <span class="image">
+                        <img src="${project.image}" alt="cover">
+                    </span>
+                </article>
+        `
+        projectsPlace.innerHTML += text;
+    }
+}
