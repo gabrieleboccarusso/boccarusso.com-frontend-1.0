@@ -1,5 +1,7 @@
-// general variables 
 const menuButton = document.getElementById('menuButton');
+
+// when updating the webpage the menu doesn't retrieve
+// clicking it manually is the most straightforward solution
 const clickEvent = new MouseEvent("click", {
     "view": window,
     "bubbles": true,
@@ -19,12 +21,12 @@ function controller() {
         case "":
             main.innerHTML = "";
             main.innerHTML += getAboutMe();
-            homePosts();
+            homePostAPI();
             break;
         case "projects":
             main.innerHTML = "";
             main.innerHTML += getProjects();
-            ProjectsView();
+            ProjectsAPI();
             break;
         case "tags":
             main.innerHTML = "";
@@ -32,7 +34,7 @@ function controller() {
                 main.innerHTML += "tag: " + splitted[4];; 
             } else {
                 main.innerHTML += getSelectTag();
-                tags();
+                tagsAPI();
             }
             break;
         case "search":
@@ -46,29 +48,16 @@ function controller() {
     }
 }
 
+// heart of the structure
 (function() { 
+    // options puts the value into the select tag of the header
+    // it needs to be called only one single time at the beginning
     options();
     controller();
 })();
 window.addEventListener('popstate', () => {
     controller();
 });
-
-function addBaseStyle(style) {
-    const title = document.createElement("title");
-    title.appendChild(document.createTextNode("TITLE"));
-
-    const link = document.createElement("link");
-    link.setAttribute("rel", "canonical");
-    link.setAttribute("href", "http://www.boccarusso.com/");
-    const meta = document.createElement("meta");
-    meta.setAttribute("name", "description");
-    meta.setAttribute("content", "Official website of Gabriele Boccarusso, European developer writing about informatics and various topics");
-
-    style.appendChild(title);
-    style.appendChild(link);
-    style.appendChild(meta);
-}
 
 function redirectHome() {
     window.history.pushState({}, 'projects', "/");
@@ -90,7 +79,7 @@ function redirectTags() {
 
 function searchPost() {
     let t = "/search/"+document.getElementsByName("q")[0].value;
-    window.history.pushState({}, 'projects', t);
+    window.history.pushState({}, '', t);
     menuButton.dispatchEvent(clickEvent);
     controller();
 }
@@ -106,18 +95,10 @@ function redirectSelectedTag() {
     if (value) redirectSingleTag(value);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
+function redirectSinglePost(title) {
+    window.history.pushState({}, '', "/post/" + title);
+    controller();
+}
 
 // https://developer.mozilla.org/en-US/docs/Web/API/DOMParser
 function getAboutMe() {
@@ -185,3 +166,21 @@ function getProjects() {
         </section>
     `
 }
+
+/*
+function addBaseStyle(style) {
+    const title = document.createElement("title");
+    title.appendChild(document.createTextNode("TITLE"));
+
+    const link = document.createElement("link");
+    link.setAttribute("rel", "canonical");
+    link.setAttribute("href", "http://www.boccarusso.com/");
+    const meta = document.createElement("meta");
+    meta.setAttribute("name", "description");
+    meta.setAttribute("content", "Official website of Gabriele Boccarusso, European developer writing about informatics and various topics");
+
+    style.appendChild(title);
+    style.appendChild(link);
+    style.appendChild(meta);
+}
+*/

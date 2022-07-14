@@ -1,4 +1,5 @@
-function homePosts() {
+function homePostAPI() {
+    // retrieves the images to post on the homepage from the API
     const postsBox = document.getElementById('blog');
     const spinnerBox = document.getElementById('spinner-box');
     const loadBtn = document.getElementById('load-btn');
@@ -49,7 +50,7 @@ function homePosts() {
     function appendArticles(article) {
         text = `
                 <article>
-                    <a href=/${article.slug}>
+                    <a onclick="redirectSinglePost('${article.slug}')">
                         <h2>${article.title}</h2>
                         <div class="content">
                             <p> ${article.intro} </p>
@@ -64,7 +65,8 @@ function homePosts() {
     }
 }
 
-function tags() {
+function tagsAPI() {
+    // retrieves all of the tags from the API
     const main = document.getElementById('tags');
 
     const xmlhttp = new XMLHttpRequest();
@@ -118,7 +120,7 @@ function options() {
     }
 }
 
-function ProjectsView() {
+function ProjectsAPI() {
     const projectsPlace = document.getElementById('projects');
 
     const xmlhttp = new XMLHttpRequest();
