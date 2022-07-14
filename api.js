@@ -60,7 +60,6 @@ function homePosts() {
                     </span>
                 </article>
         `
-        // TODO: change innerHTML to appendChild or something similar
         postsBox.innerHTML += text;
     }
 }

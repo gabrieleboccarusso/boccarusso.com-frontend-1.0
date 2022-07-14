@@ -12,7 +12,7 @@ function controller() {
     const style = document.getElementsByTagName("head")[0];
     const main = document.getElementById('content');
     const body  = document.getElementsByTagName("body")[0];
-    // console.log(splitted);
+    console.log(splitted);
 
     $('html, body').animate({ scrollTop: 0 }, 'fast');
     switch(splitted[3]) {
@@ -27,17 +27,21 @@ function controller() {
             break;
         case "tags":
             main.innerHTML = "";
-            main.innerHTML += getSelectTag();
-            tags();
+            if(splitted[4]) {
+                main.innerHTML += "tag: " + splitted[4];; 
+            } else {
+                main.innerHTML += getSelectTag();
+                tags();
+            }
             break;
         case "search":
-                main.innerHTML = "";
-                main.innerHTML += "search: " + splitted[4];
-                break;
+            main.innerHTML = "";
+            main.innerHTML += "search: " + splitted[4];
+            break;
         case "post":
-                main.innerHTML = "";
-                main.innerHTML += "post: "  + splitted[4];;
-                break;
+            main.innerHTML = "";
+            main.innerHTML += "post: "  + splitted[4];;
+            break;
     }
 }
 
