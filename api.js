@@ -56,7 +56,7 @@ function homePosts() {
                         </div>
                     </a>
                     <span class="image">
-                        <img src=https://drive.google.com/uc?id=${article.image} alt="cover">
+                        <img src="${article.image}" alt="cover">
                     </span>
                 </article>
         `

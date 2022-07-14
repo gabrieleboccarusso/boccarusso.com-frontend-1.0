@@ -102,6 +102,7 @@ function redirectSingleTag(tag) {
 
 function redirectSelectedTag() {
     let value = document.getElementById("selectTag").value;
+    menuButton.dispatchEvent(clickEvent);
     if (value) redirectSingleTag(value);
 }
 
