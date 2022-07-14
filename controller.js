@@ -14,6 +14,7 @@ function controller() {
     const body  = document.getElementsByTagName("body")[0];
     // console.log(splitted);
 
+    $('html, body').animate({ scrollTop: 0 }, 'fast');
     switch(splitted[3]) {
         case "":
             main.innerHTML = "";
