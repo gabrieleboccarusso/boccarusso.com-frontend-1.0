@@ -8,7 +8,7 @@ function homePosts() {
     let end;
     let begin;
 
-    var xmlhttp = new XMLHttpRequest();
+    const xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             switch(switchFunc) {
@@ -26,7 +26,7 @@ function homePosts() {
                     break;
             }
           }
-    };
+    }
     
     function getMax() {
         switchFunc = "getMax";
@@ -62,5 +62,35 @@ function homePosts() {
         `
         // TODO: change innerHTML to appendChild or something similar
         postsBox.innerHTML += text;
+    }
+}
+
+function tags() {
+    const main = document.getElementById('tags');
+    const selectTag = document.getElementById('selectTag');
+
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            const tags = JSON.parse(this.responseText);
+            tags.forEach(appendTags);
+        }
+    }
+
+    function getTags() {
+        let api = "https://boccarussoapi.herokuapp.com/tags";
+        xmlhttp.open("GET", api, true);
+        xmlhttp.send();
+    } getTags();
+
+    function appendTags(tag) {
+        let text = `
+            <li>
+                <a class="button ${tag.name}" onclick="redirectSingleTag('${tag.name}')">
+                    <span>${tag.name.replace('-', ' ')}</span>
+                </a>
+            </li>
+        `;
+        main.innerHTML += text;
     }
 }

@@ -13,14 +13,12 @@ function controller() {
     const main = document.getElementById('content');
     const body  = document.getElementsByTagName("body")[0];
     // console.log(splitted);
-    
-    window.history.pushState
+
     switch(splitted[3]) {
         case "":
             main.innerHTML = "";
             main.innerHTML += getAboutMe();
             homePosts();
-            console.log("home");
             break;
         case "projects":
             main.innerHTML = "";
@@ -28,7 +26,8 @@ function controller() {
             break;
         case "tags":
             main.innerHTML = "";
-            main.innerHTML += "tags";
+            main.innerHTML += `<h1>All tags:</h1><ul id="tags" class="actions container-tag"></ul>`;
+            tags();
             break;
         case "search":
                 main.innerHTML = "";
@@ -44,6 +43,9 @@ function controller() {
 (function() { 
     controller();
 })();
+window.addEventListener('popstate', () => {
+    controller();
+});
 
 function addBaseStyle(style) {
     const title = document.createElement("title");
@@ -83,6 +85,12 @@ function searchPost() {
     let t = "/search/"+document.getElementsByName("q")[0].value;
     window.history.pushState({}, 'projects', t);
     menuButton.dispatchEvent(clickEvent);
+    controller();
+}
+
+function redirectSingleTag(tag) {
+    window.history.pushState({}, '', "/tags/"+tag);
+    //menuButton.dispatchEvent(clickEvent);
     controller();
 }
 
