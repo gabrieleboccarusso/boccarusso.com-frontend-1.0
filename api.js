@@ -67,7 +67,6 @@ function homePosts() {
 
 function tags() {
     const main = document.getElementById('tags');
-    const selectTag = document.getElementById('selectTag');
 
     const xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
@@ -92,5 +91,30 @@ function tags() {
             </li>
         `;
         main.innerHTML += text;
+    }
+}
+
+function options() {
+    const selectTag = document.getElementById('selectTag');
+
+    const xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            const tags = JSON.parse(this.responseText);
+            tags.forEach(appendOptionTag);
+        }
+    }
+
+    function getTags() {
+        let api = "https://boccarussoapi.herokuapp.com/tags";
+        xmlhttp.open("GET", api, true);
+        xmlhttp.send();
+    } getTags();
+
+    function appendOptionTag(tag) {
+        let option = `
+            <option value='${tag.name}'>${tag.name.replace('-', ' ')}</option>
+        `;
+        selectTag.innerHTML += option;
     }
 }

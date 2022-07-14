@@ -26,7 +26,7 @@ function controller() {
             break;
         case "tags":
             main.innerHTML = "";
-            main.innerHTML += `<h1>All tags:</h1><ul id="tags" class="actions container-tag"></ul>`;
+            main.innerHTML += getSelectTag();
             tags();
             break;
         case "search":
@@ -41,6 +41,7 @@ function controller() {
 }
 
 (function() { 
+    options();
     controller();
 })();
 window.addEventListener('popstate', () => {
@@ -90,8 +91,12 @@ function searchPost() {
 
 function redirectSingleTag(tag) {
     window.history.pushState({}, '', "/tags/"+tag);
-    //menuButton.dispatchEvent(clickEvent);
     controller();
+}
+
+function redirectSelectedTag() {
+    let value = document.getElementById("selectTag").value;
+    if (value) redirectSingleTag(value);
 }
 
 
@@ -156,4 +161,12 @@ function getAboutMe() {
         <button id="load-btn">Load more</button>
     </div>
     `
+}
+
+function getSelectTag() {
+    return `
+        <h1>All tags:</h1>
+        <ul id="tags" class="actions container-tag">
+        </ul>
+    `;
 }
