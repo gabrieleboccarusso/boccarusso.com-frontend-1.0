@@ -4,49 +4,37 @@ function homePostAPI() {
     const spinnerBox = document.getElementById('spinner-box');
     const loadBtn = document.getElementById('load-btn');
 
-    let switchFunc = "";
-    let max;
+    let max = 0;
     let end;
     let begin;
 
-    const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            switch(switchFunc) {
-                case "getMax":
-                    max = this.responseText;
-                    end = parseInt(max);
-                    begin = end-2;
-                    getThreeLastPost();
-                    break;
-                case "getThreeLastPost":
-                    if((end -3)<= 0) { loadBtn.remove(); }
-                    begin -= 3; end -= 3;
-                    const posts = JSON.parse(this.responseText);
-                    posts.forEach(appendArticles);
-                    break;
-            }
-          }
-    }
-    
-    function getMax() {
-        switchFunc = "getMax";
-        let api = "https://boccarussoapi.herokuapp.com/posts/maxId";
-        xmlhttp.open("GET", api, true);
-        xmlhttp.send();
-    } getMax();
+    // get max
+    let maxApi = "https://boccarussoapi.herokuapp.com/posts/maxId"
 
-    function getThreeLastPost() {
-        switchFunc = "getThreeLastPost";
-        let api = "https://boccarussoapi.herokuapp.com/posts/between/"+begin+"/"+end;
-        xmlhttp.open("GET", api, true);
-        xmlhttp.send();
-    }
+    async function getPosts(maxApi) {
+        if (max == 0) {
+            max = await fetch(maxApi).then(x => x.json());
+            console.log(max);
+            end = max;
+            begin = end-2;
+        }
+        getThreeLastPost();
+        
+    }getPosts(maxApi)
+    
+    async function getThreeLastPost() {
+        fetch("https://boccarussoapi.herokuapp.com/posts/between/"+begin+"/"+end)
+        .then(x => x.json())
+        .then(y => y.forEach(appendArticles));
+        begin -= 3;
+        end -= 3;
+        if(end <= 0) { loadBtn.remove(); }
+    } 
 
     loadBtn.addEventListener('click', () => {
         getThreeLastPost();
     })
-    
+   
     function appendArticles(article) {
         text = `
                 <article>
@@ -66,22 +54,12 @@ function homePostAPI() {
 }
 
 function tagsAPI() {
-    // retrieves all of the tags from the API
     const main = document.getElementById('tags');
+    let api = "https://boccarussoapi.herokuapp.com/tags";
 
-    const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            const tags = JSON.parse(this.responseText);
-            tags.forEach(appendTags);
-        }
-    }
-
-    function getTags() {
-        let api = "https://boccarussoapi.herokuapp.com/tags";
-        xmlhttp.open("GET", api, true);
-        xmlhttp.send();
-    } getTags();
+    fetch(api)
+    .then(x => x.json())
+    .then(y => y.forEach(appendTags));
 
     function appendTags(tag) {
         let text = `
@@ -95,22 +73,11 @@ function tagsAPI() {
     }
 }
 
+// BUG: options() and tagsAPI() could be merged into one single closure
 function options() {
-    const selectTag = document.getElementById('selectTag');
-
-    const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            const tags = JSON.parse(this.responseText);
-            tags.forEach(appendOptionTag);
-        }
-    }
-
-    function getTags() {
-        let api = "https://boccarussoapi.herokuapp.com/tags";
-        xmlhttp.open("GET", api, true);
-        xmlhttp.send();
-    } getTags();
+    fetch("https://boccarussoapi.herokuapp.com/tags")
+    .then(x => x.json())
+    .then(y => y.forEach(appendOptionTag))
 
     function appendOptionTag(tag) {
         let option = `
@@ -123,19 +90,9 @@ function options() {
 function ProjectsAPI() {
     const projectsPlace = document.getElementById('projects');
 
-    const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            const projects = JSON.parse(this.responseText);
-            projects.forEach(appendProjects);
-        }
-    }
-
-    function getProjects() {
-        let api = "https://boccarussoapi.herokuapp.com/projectsDescending";
-        xmlhttp.open("GET", api, true);
-        xmlhttp.send();
-    } getProjects();
+    fetch("https://boccarussoapi.herokuapp.com/projectsDescending")
+    .then(x => x.json())
+    .then(y => y.forEach(appendProjects))
 
     function appendProjects(project) {
         text = `
