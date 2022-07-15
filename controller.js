@@ -31,7 +31,7 @@ function controller() {
         case "tags":
             main.innerHTML = "";
             if(splitted[4]) {
-                main.innerHTML += "<h1>Tag: " + splitted[4] + "</h1>" + getPostsByTag();
+                main.innerHTML += getPostsByTag(splitted[4]);
                 PostsAPI("byTag", splitted[4]);
             } else {
                 main.innerHTML += getSelectTag();
@@ -40,7 +40,8 @@ function controller() {
             break;
         case "search":
             main.innerHTML = "";
-            main.innerHTML += "search: " + splitted[4];
+            main.innerHTML += getPostsByTitle(splitted[4]);
+            PostsAPI("byTitle", splitted[4]);
             break;
         case "post":
             main.innerHTML = "";
@@ -168,9 +169,18 @@ function getProjects() {
     `
 }
 
-function getPostsByTag() {
+function getPostsByTag(tag) {
     return `
-        <section id="imagesByTag" class="tiles">
+        <h1>Tag: ${tag}</h1>
+        <section id="postsByTag" class="tiles">
+        </section>
+    `
+}
+
+function getPostsByTitle(title) {
+    return `
+        <h1>Looking for: ${title}</h1>
+        <section id="postsByTitle" class="tiles">
         </section>
     `
 }

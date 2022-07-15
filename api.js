@@ -1,11 +1,14 @@
-function PostsAPI(switcher, tag) {
+function PostsAPI(switcher, content) {
     // retrieves the images as clicable elements from the API
     switch(switcher) {
         case "homepage":
             homepage();
             break;
         case "byTag":
-            byTag(tag);
+            byTag(content);
+            break;
+        case "byTitle":
+            byTitle(content);
             break;
     }
 
@@ -47,13 +50,38 @@ function PostsAPI(switcher, tag) {
     }
 
     function byTag(tag) {
-        const place = document.getElementById('imagesByTag');
+        const place = document.getElementById('postsByTag');
 
         fetch("https://boccarussoapi.herokuapp.com/posts/getByTag/" + tag)
         .then(a => a.json())
         .then(b => b.forEach(
             c => appendArticles(c, place)
         ));
+    }
+
+    function byTitle(title) {
+        const place = document.getElementById('postsByTitle');
+
+        fetch("https://boccarussoapi.herokuapp.com/posts/getByTitle/" + title)
+        .then(a => a.json())
+        .then(b => {
+            if (b.length == 0) {
+                place.innerHTML += "<h2>Your search for  has produced no results</h2>";
+            } else {
+                b.forEach(c => appendArticles(c, place));
+            }
+        })
+        /*
+        if (title) {
+            fetch("https://boccarussoapi.herokuapp.com/posts/getByTitle/" + title)
+            .then(a => a.json())
+            .then(b => b.forEach(
+                c => appendArticles(c, place)
+            ));
+        } else {
+            place.innerHTML = "Your research for  has produced no results.";
+        }
+        */
     }
    
     function appendArticles(article, place) {
