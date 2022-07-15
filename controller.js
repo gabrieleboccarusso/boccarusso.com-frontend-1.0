@@ -11,9 +11,9 @@ const clickEvent = new MouseEvent("click", {
 function controller() { 
     let baseURL = window.location.href;
     const splitted = baseURL.split('/');
-    const style = document.getElementsByTagName("head")[0];
+    // const style = document.getElementsByTagName("head")[0];
     const main = document.getElementById('content');
-    const body  = document.getElementsByTagName("body")[0];
+    // const body  = document.getElementsByTagName("body")[0];
     console.log(splitted);
 
     $('html, body').animate({ scrollTop: 0 }, 'fast');
@@ -21,7 +21,7 @@ function controller() {
         case "":
             main.innerHTML = "";
             main.innerHTML += getAboutMe();
-            homePostAPI();
+            PostsAPI("homepage");
             break;
         case "projects":
             main.innerHTML = "";
@@ -31,7 +31,8 @@ function controller() {
         case "tags":
             main.innerHTML = "";
             if(splitted[4]) {
-                main.innerHTML += "tag: " + splitted[4];; 
+                main.innerHTML += "<h1>Tag: " + splitted[4] + "</h1>" + getPostsByTag();
+                PostsAPI("byTag", splitted[4]);
             } else {
                 main.innerHTML += getSelectTag();
                 tagsAPI();
@@ -163,6 +164,13 @@ function getProjects() {
     return `
         <h1>All projects:</h1>
         <section id="projects" class="tiles">
+        </section>
+    `
+}
+
+function getPostsByTag() {
+    return `
+        <section id="imagesByTag" class="tiles">
         </section>
     `
 }

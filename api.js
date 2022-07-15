@@ -1,41 +1,62 @@
-function homePostAPI() {
-    // retrieves the images to post on the homepage from the API
-    const postsBox = document.getElementById('blog');
-    const spinnerBox = document.getElementById('spinner-box');
-    const loadBtn = document.getElementById('load-btn');
+function PostsAPI(switcher, tag) {
+    // retrieves the images as clicable elements from the API
+    switch(switcher) {
+        case "homepage":
+            homepage();
+            break;
+        case "byTag":
+            byTag(tag);
+            break;
+    }
 
-    let max = 0;
-    let end;
-    let begin;
-
-    // get max
-    let maxApi = "https://boccarussoapi.herokuapp.com/posts/maxId"
-
-    async function getPosts(maxApi) {
-        if (max == 0) {
-            max = await fetch(maxApi).then(x => x.json());
-            console.log(max);
-            end = max;
-            begin = end-2;
-        }
-        getThreeLastPost();
-        
-    }getPosts(maxApi)
+    function homepage() {
+        const postsBox = document.getElementById('blog');
+        const spinnerBox = document.getElementById('spinner-box');
+        const loadBtn = document.getElementById('load-btn');
     
-    async function getThreeLastPost() {
-        fetch("https://boccarussoapi.herokuapp.com/posts/between/"+begin+"/"+end)
-        .then(x => x.json())
-        .then(y => y.forEach(appendArticles));
-        begin -= 3;
-        end -= 3;
-        if(end <= 0) { loadBtn.remove(); }
-    } 
+        let max = 0;
+        let end;
+        let begin;
+    
+            
+        async function getPosts() {
+            if (max == 0) {
+                max = await fetch("https://boccarussoapi.herokuapp.com/posts/maxId").then(x => x.json());
+                console.log(max);
+                end = max;
+                begin = end-2;
+            }
+            getThreeLastPost();
+            
+        }getPosts()
+        
+        async function getThreeLastPost() {
+            fetch("https://boccarussoapi.herokuapp.com/posts/between/"+begin+"/"+end)
+            .then(x => x.json())
+            .then(y => y.forEach(
+                z => appendArticles(z, postsBox)
+            ));
+            begin -= 3;
+            end -= 3;
+            if(end <= 0) { loadBtn.remove(); }
+        } 
+    
+        loadBtn.addEventListener('click', () => {
+            getThreeLastPost();
+        })
+    }
 
-    loadBtn.addEventListener('click', () => {
-        getThreeLastPost();
-    })
+    function byTag(tag) {
+        const place = document.getElementById('imagesByTag');
+
+        fetch("https://boccarussoapi.herokuapp.com/posts/getByTag/" + tag)
+        .then(a => a.json())
+        .then(b => b.forEach(
+            c => appendArticles(c, place)
+        ));
+    }
    
-    function appendArticles(article) {
+    function appendArticles(article, place) {
         text = `
                 <article>
                     <a onclick="redirectSinglePost('${article.slug}')">
@@ -49,9 +70,10 @@ function homePostAPI() {
                     </span>
                 </article>
         `
-        postsBox.innerHTML += text;
+        place.innerHTML += text;
     }
 }
+
 
 function tagsAPI() {
     const main = document.getElementById('tags');
