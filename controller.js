@@ -38,7 +38,7 @@ function controller() {
                 postsAPI("byTag", splitted[4]);
             } else {
                 main.innerHTML += getSelectTag();
-                tagsAPI();
+                tagsAPI("all");
             }
             break;
         case "search":
@@ -57,7 +57,7 @@ function controller() {
 (function() { 
     // options puts the value into the select tag of the header
     // it needs to be called only one single time at the beginning
-    options();
+    tagsAPI("options");
     controller();
 })();
 window.addEventListener('popstate', () => {

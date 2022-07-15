@@ -93,42 +93,6 @@ function postsAPI(switcher, content) {
     }
 }
 
-
-function tagsAPI() {
-    const main = document.getElementById('tags');
-    let api = "https://boccarussoapi.herokuapp.com/tags";
-
-    fetch(api)
-    .then(x => x.json())
-    .then(y => y.forEach(appendTags));
-    
-    function appendTags(tag) {
-        let text = `
-            <li>
-                <a class="button ${tag.name}" onclick="redirectSingleTag('${tag.name}')">
-                    <span>${tag.name.replace('-', ' ')}</span>
-                </a>
-            </li>
-        `;
-        main.innerHTML += text;
-    }
-}
-
-
-// BUG: options() and tagsAPI() could be merged into one single closure
-function options() {
-    fetch("https://boccarussoapi.herokuapp.com/tags")
-    .then(x => x.json())
-    .then(y => y.forEach(appendOptionTag))
-
-    function appendOptionTag(tag) {
-        let option = `
-            <option value='${tag.name}'>${tag.name.replace('-', ' ')}</option>
-        `;
-        selectTag.innerHTML += option;
-    }
-}
-
 function ProjectsAPI() {
     const projectsPlace = document.getElementById('projects');
 
@@ -151,6 +115,56 @@ function ProjectsAPI() {
                 </article>
         `
         projectsPlace.innerHTML += text;
+    }
+}
+
+function tagsAPI(switcher) {
+    switch(switcher) {
+        case "options":
+            options();
+            break;
+        case "all":
+            allTags();
+            break
+    }
+
+    function allTags() {
+        const place = document.getElementById('tags');
+        let api = "https://boccarussoapi.herokuapp.com/tags";
+    
+        fetch(api)
+        .then(a => a.json())
+        .then(b => b.forEach(
+            c => appendTag(c, place)
+        ));
+    }
+
+    function options() {
+        const place = document.getElementById('selectTag');
+    
+        fetch("https://boccarussoapi.herokuapp.com/tags")
+        .then(a => a.json())
+        .then(y => y.forEach(
+            c => appendOptionTag(c, place)
+        ));
+    }
+
+    function appendOptionTag(tag, place) {
+        let option = `
+            <option value='${tag.name}'>${tag.name.replace('-', ' ')}</option>
+        `;
+        place.innerHTML += option;
+    }
+
+    function appendTag(tag, place) {
+        let text = `
+            <li>
+                <a class="button ${tag.name}" onclick="redirectSingleTag('${tag.name}')">
+                    <span>${tag.name.replace('-', ' ')}</span>
+                </a>
+            </li>
+        `;
+        place.innerHTML += text;
     }
 }
 
