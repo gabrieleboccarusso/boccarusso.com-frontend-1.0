@@ -37,9 +37,9 @@ function postsAPI(switcher, content) {
         
         async function getThreeLastPost() {
             fetch("https://boccarussoapi.herokuapp.com/posts/between/"+begin+"/"+end)
-            .then(x => x.json())
-            .then(y => y.forEach(
-                z => appendArticles(z, postsBox)
+            .then(a => a.json())
+            .then(b => b.forEach(
+                c => appendArticles(c, postsBox)
             ));
             begin -= 3;
             end -= 3;
@@ -97,8 +97,8 @@ function ProjectsAPI() {
     const projectsPlace = document.getElementById('projects');
 
     fetch("https://boccarussoapi.herokuapp.com/projectsDescending")
-    .then(x => x.json())
-    .then(y => y.forEach(appendProjects))
+    .then(a => a.json())
+    .then(b => b.forEach(appendProjects))
 
     function appendProjects(project) {
         text = `
@@ -118,14 +118,14 @@ function ProjectsAPI() {
     }
 }
 
-function tagsAPI(switcher) {
+function tagsAPI(switcher, unrefinedTags = null) {
     switch(switcher) {
         case "options":
             options();
             break;
         case "all":
             allTags();
-            break
+            break;
     }
 
     function allTags() {
@@ -144,7 +144,7 @@ function tagsAPI(switcher) {
     
         fetch("https://boccarussoapi.herokuapp.com/tags")
         .then(a => a.json())
-        .then(y => y.forEach(
+        .then(b => b.forEach(
             c => appendOptionTag(c, place)
         ));
     }
@@ -155,7 +155,7 @@ function tagsAPI(switcher) {
         `;
         place.innerHTML += option;
     }
-
+    
     function appendTag(tag, place) {
         let text = `
             <li>
@@ -168,32 +168,71 @@ function tagsAPI(switcher) {
     }
 }
 
-function postContentAPi(slug) {
-    const main = document.getElementById('main');
-    const place = document.getElementById('content');
 
-    main.style = "width: 70%; margin: 0 auto";
+function postContentAPi(slug) {
+    const place = document.getElementById('content');
 
     fetch("https://boccarussoapi.herokuapp.com/posts/getBySlug/" + slug)
     .then(a => a.json())
     .then(b => makePost(b));
 
     function makePost(post) {
-        console.log(post);
+        tags = makeTags(post.tags);
         place.innerHTML += `
+        <div style="width: 70%; margin: 0 auto">
         <h1 style="text-align:center">${post.title}</h1>
         <hr>
         <p style="text-align:center">
-            author: <span class="h">Boccarusso</span>
-            <br>
-            created: <span class="h">${post.creation}</span>
-            <br>
-            Last update: <span class="h">${post.lastUpdate}</span> 
+        author: <span class="h">Boccarusso</span>
+        <br>
+        created: <span class="h">${post.creation}</span>
+        <br>
+        Last update: <span class="h">${post.lastUpdate}</span> 
         </p>
         <hr>
-        <ul class="actions container-tag">
+        <ul class="actions container-tag" id="containerTag">
+        ${tags}
         </ul>
         <hr>
+        <span class="image main" id="main-img">
+        <img src="${post.image}" alt="article cover" class="image main">
+        </span>
+        <article id="article">
+        </article>
+        <!--
+        <span class="image left">
+        <a href="google.com">
+        <img src="" alt="">
+        </a>
+        </span>
+        <span class="image right">
+        <img src="" alt="">
+        </span> 
+        -->
+        </div>
         `;
+        const article = document.getElementById("article");
+        article.innerHTML = "loading...";
+        let proxyCORS = "https://corsproxy.io/?";
+        fetch(proxyCORS + "https://drive.google.com/uc?id=" + post.content)
+        .then(a => a.text())
+        .then(b => article.innerHTML = b);
+    }
+    
+    function makeTags(unrefined) {
+        tags = unrefined.split("-");
+        let result = "";
+        let link = "";
+        tags.forEach(tag => 
+            {
+            link = tag.replace(' ', '-');
+            result += `
+            <li>
+                <a class="button ${link}" onclick="redirectSingleTag('${link}')">
+                    <span>${tag}</span>
+                </a>
+            </li>
+        `;});
+        return result;
     }
 }
