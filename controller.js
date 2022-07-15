@@ -14,14 +14,17 @@ function controller() {
     // const style = document.getElementsByTagName("head")[0];
     const main = document.getElementById('content');
     // const body  = document.getElementsByTagName("body")[0];
-    console.log(splitted);
 
+    // everytime the page gets (between a lot of quotes) "reloaded"
+    // it stays at the same place cauing the possibilities of having
+    // the content not visible 'cause at the top
     $('html, body').animate({ scrollTop: 0 }, 'fast');
+
     switch(splitted[3]) {
         case "":
             main.innerHTML = "";
             main.innerHTML += getAboutMe();
-            PostsAPI("homepage");
+            postsAPI("homepage");
             break;
         case "projects":
             main.innerHTML = "";
@@ -32,7 +35,7 @@ function controller() {
             main.innerHTML = "";
             if(splitted[4]) {
                 main.innerHTML += getPostsByTag(splitted[4]);
-                PostsAPI("byTag", splitted[4]);
+                postsAPI("byTag", splitted[4]);
             } else {
                 main.innerHTML += getSelectTag();
                 tagsAPI();
@@ -41,11 +44,11 @@ function controller() {
         case "search":
             main.innerHTML = "";
             main.innerHTML += getPostsByTitle(splitted[4]);
-            PostsAPI("byTitle", splitted[4]);
+            postsAPI("byTitle", splitted[4]);
             break;
         case "post":
             main.innerHTML = "";
-            main.innerHTML += "post: "  + splitted[4];;
+            postContentAPi(splitted[4]);
             break;
     }
 }

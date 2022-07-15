@@ -1,5 +1,7 @@
-function PostsAPI(switcher, content) {
-    // retrieves the images as clicable elements from the API
+function postsAPI(switcher, content) {
+    // PostsAPI is a closure which only purpose is to retrieve posts 
+    // from the database through the API *only as ckiclable items*
+    // to receive the actual content of a post see 'postContentAPi'
     switch(switcher) {
         case "homepage":
             homepage();
@@ -71,17 +73,6 @@ function PostsAPI(switcher, content) {
                 b.forEach(c => appendArticles(c, place));
             }
         })
-        /*
-        if (title) {
-            fetch("https://boccarussoapi.herokuapp.com/posts/getByTitle/" + title)
-            .then(a => a.json())
-            .then(b => b.forEach(
-                c => appendArticles(c, place)
-            ));
-        } else {
-            place.innerHTML = "Your research for  has produced no results.";
-        }
-        */
     }
    
     function appendArticles(article, place) {
@@ -110,7 +101,7 @@ function tagsAPI() {
     fetch(api)
     .then(x => x.json())
     .then(y => y.forEach(appendTags));
-
+    
     function appendTags(tag) {
         let text = `
             <li>
@@ -122,6 +113,7 @@ function tagsAPI() {
         main.innerHTML += text;
     }
 }
+
 
 // BUG: options() and tagsAPI() could be merged into one single closure
 function options() {
@@ -159,5 +151,35 @@ function ProjectsAPI() {
                 </article>
         `
         projectsPlace.innerHTML += text;
+    }
+}
+
+function postContentAPi(slug) {
+    const main = document.getElementById('main');
+    const place = document.getElementById('content');
+
+    main.style = "width: 70%; margin: 0 auto";
+
+    fetch("https://boccarussoapi.herokuapp.com/posts/getBySlug/" + slug)
+    .then(a => a.json())
+    .then(b => makePost(b));
+
+    function makePost(post) {
+        console.log(post);
+        place.innerHTML += `
+        <h1 style="text-align:center">${post.title}</h1>
+        <hr>
+        <p style="text-align:center">
+            author: <span class="h">Boccarusso</span>
+            <br>
+            created: <span class="h">${post.creation}</span>
+            <br>
+            Last update: <span class="h">${post.lastUpdate}</span> 
+        </p>
+        <hr>
+        <ul class="actions container-tag">
+        </ul>
+        <hr>
+        `;
     }
 }
