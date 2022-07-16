@@ -243,3 +243,26 @@ function postContentAPi(slug) {
         return result;
     }
 }
+
+function emailAPI(subject, email, message, resultPlace, form) {
+    fetch("https://formsubmit.co/ajax/9c89e8aa57888c949d4ad490921b2430", {
+        method: "POST",
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            subject: subject,
+            email: email,
+            message: message
+        })
+    })
+    .then(a => {
+        resultPlace.innerHTML = "Your email has been successfully sent!";
+        form.reset()
+        setTimeout(function(){
+            resultPlace.innerHTML="";
+        },5000);
+    })
+    .catch(error => resultPlace.innerHTML +="There was an error! Try resending your message");
+}

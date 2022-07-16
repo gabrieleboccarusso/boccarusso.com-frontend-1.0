@@ -46,28 +46,34 @@
 
             <footer id="footer">
                 <div class="inner" id="contact-me">
-                    <form action="https://formsubmit.co/9c89e8aa57888c949d4ad490921b2430" method="POST">
+                    <form id="emailForm">
                         <input type="hidden" name="_next" value="">
                         <h2><span class="black">Contact me</span></h2>
                         <div class="fields">
                             <div class="field half">
-                                <input style="background-color: black;" type="text" name="subject" placeholder="Subject" required id="id_subject">
+                                <input style="background-color: black;" type="text" placeholder="Subject" id="subject" required>
                             </div>
                             <div class="field half">
-                                <input style="background-color: black;"type="email" name="email" placeholder="Email" required id="id_email">
+                                <input style="background-color: black;" type="email" placeholder="Email" id="email" required>
                             </div>
                             <div class="field">
                                 <div class="textarea-wrapper">
-                                    <textarea style="background-color: black;" name="message" cols="1" rows="1" placeholder="Message" required id="id_message"></textarea>
+                                    <textarea style="background-color: black;" cols="1" rows="1" placeholder="Message" id="message" required>
+                                    </textarea>
                                 </div>
                             </div>
                         </div>
                     
                         <ul class="actions">
-                            <li><input type="submit" value="Send" class="primary" id = "submit-btn"/></li>
+                            <li>
+                                <input onclick="sendMail()" type="button" value="Send" class="primary" id = "submitButton">
+                            </li>
+                            <li >
+                                <p style="background-color: black;" id="emailResult"></p>
+                            </li>
+                            
                         </ul>
                     </form>
-
                     <section>
                         <h2><span class="black">Follow me</span></h2>
                         <ul class="icons">

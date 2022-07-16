@@ -7,6 +7,8 @@ const clickEvent = new MouseEvent("click", {
     "cancelable": false
 });
 
+// https://formsubmit.co/9c89e8aa57888c949d4ad490921b2430
+
 function controller() { 
     let baseURL = window.location.href;
     const splitted = baseURL.split('/');
@@ -112,6 +114,16 @@ function setTitle(text) {
     document.getElementById("title").innerText = text;
 }
 
+function sendMail() {
+    const resultPlace = document.getElementById("emailResult");
+    const emailForm = document.getElementById("emailForm");
+    let subject = document.getElementById("subject").value;
+    let email = document.getElementById("email").value;
+    let message = document.getElementById("message").value;
+    emailAPI(subject, email, message, resultPlace, emailForm);
+}
+
+
 // https://developer.mozilla.org/en-US/docs/Web/API/DOMParser
 function getAboutMe() {
     return `
@@ -197,9 +209,6 @@ function getPostsByTitle(title) {
 
 /*
 function addBaseStyle(style) {
-    const title = document.createElement("title");
-    title.appendChild(document.createTextNode("TITLE"));
-
     const link = document.createElement("link");
     link.setAttribute("rel", "canonical");
     link.setAttribute("href", "http://www.boccarusso.com/");
