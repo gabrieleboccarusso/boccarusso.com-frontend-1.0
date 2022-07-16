@@ -206,6 +206,7 @@ function postContentAPi(slug) {
             <img src="${post.image}" alt="article cover" class="image main">
             </span>
             <article id="article">
+                ${post.content}
             </article>
             <!--
             <span class="image left">
@@ -219,13 +220,6 @@ function postContentAPi(slug) {
             -->
             </div>
         `;
-        const article = document.getElementById("article");
-        article.innerHTML = getLoadingGif();
-        let proxyCORS = "https://corsproxy.io/?";
-        fetch(proxyCORS + "https://drive.google.com/uc?id=" + post.content)
-        .then(a => a.text())
-        .then(b => article.innerHTML = b)
-        .catch(error => article.innerHTML = "<h2>There was an error getting the data.<br>Try to reload the page</h2>");
     }
 
     function makeHead(post) {
