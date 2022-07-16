@@ -175,47 +175,49 @@ function tagsAPI(switcher, unrefinedTags = null) {
 
 
 function postContentAPi(slug) {
-    const place = document.getElementById('content');
+    const place = document.getElementById("content");
+    const head = document.getElementsByTagName("head")[0];
 
     fetch("https://boccarussoapi.herokuapp.com/posts/getBySlug/" + slug)
     .then(a => a.json())
     .then(b => makePost(b));
 
     function makePost(post) {
+        makeHead(post);
         setTitle(post.title + " - Gabriele Boccarusso");
         tags = makeTags(post.tags);
         place.innerHTML += `
-        <div style="width: 70%; margin: 0 auto">
-        <h1 style="text-align:center">${post.title}</h1>
-        <hr>
-        <p style="text-align:center">
-        author: <span class="h">Boccarusso</span>
-        <br>
-        created: <span class="h">${post.creation}</span>
-        <br>
-        Last update: <span class="h">${post.lastUpdate}</span> 
-        </p>
-        <hr>
-        <ul class="actions container-tag" id="containerTag">
-        ${tags}
-        </ul>
-        <hr>
-        <span class="image main" id="main-img">
-        <img src="${post.image}" alt="article cover" class="image main">
-        </span>
-        <article id="article">
-        </article>
-        <!--
-        <span class="image left">
-        <a href="google.com">
-        <img src="" alt="">
-        </a>
-        </span>
-        <span class="image right">
-        <img src="" alt="">
-        </span> 
-        -->
-        </div>
+            <div style="width: 70%; margin: 0 auto">
+            <h1 style="text-align:center">${post.title}</h1>
+            <hr>
+            <p style="text-align:center">
+            author: <span class="h">Boccarusso</span>
+            <br>
+            created: <span class="h">${post.creation}</span>
+            <br>
+            Last update: <span class="h">${post.lastUpdate}</span> 
+            </p>
+            <hr>
+            <ul class="actions container-tag" id="containerTag">
+            ${tags}
+            </ul>
+            <hr>
+            <span class="image main" id="main-img">
+            <img src="${post.image}" alt="article cover" class="image main">
+            </span>
+            <article id="article">
+            </article>
+            <!--
+            <span class="image left">
+            <a href="google.com">
+            <img src="" alt="">
+            </a>
+            </span>
+            <span class="image right">
+            <img src="" alt="">
+            </span>
+            -->
+            </div>
         `;
         const article = document.getElementById("article");
         article.innerHTML = getLoadingGif();
@@ -224,6 +226,22 @@ function postContentAPi(slug) {
         .then(a => a.text())
         .then(b => article.innerHTML = b)
         .catch(error => article.innerHTML = "<h2>There was an error getting the data.<br>Try to reload the page</h2>");
+    }
+
+    function makeHead(post) {
+        const head = document.getElementsByTagName("head")[0];
+        // remember to add keywords
+        head.innerHTML += `
+            <meta name='description' content="${post.intro}">
+            <meta name='description' content="${post.tags.replace('-', ' ')}">
+            <meta property='og:title' content="${post.title}"> 
+            <meta property='og:type' content="article"> 
+            <meta property='og:url' content="${window.location.href}"> 
+            <meta property='og:image' content="${post.image}">
+            <meta name="author" content="Gabriele Boccarusso">
+            <link rel="canonical" href="${window.location.href}">
+            <meta name="author" content="Gabriele Boccarusso">
+        `;
     }
     
     function makeTags(unrefined) {
@@ -234,12 +252,13 @@ function postContentAPi(slug) {
             {
             link = tag.replace(' ', '-');
             result += `
-            <li>
-                <a class="button ${link}" onclick="redirectSingleTag('${link}')">
-                    <span>${tag}</span>
-                </a>
-            </li>
-        `;});
+                <li>
+                    <a class="button ${link}" onclick="redirectSingleTag('${link}')">
+                        <span>${tag}</span>
+                    </a>
+                </li>
+            `
+        ;});
         return result;
     }
 }
@@ -266,3 +285,5 @@ function emailAPI(subject, email, message, resultPlace, form) {
     })
     .catch(error => resultPlace.innerHTML +="There was an error! Try resending your message");
 }
+
+//  document.designMode = "on";
