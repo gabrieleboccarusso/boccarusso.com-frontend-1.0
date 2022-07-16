@@ -1,5 +1,4 @@
-const menuButton = document.getElementById('menuButton');
-
+const menuButton = document.getElementById("menuButton");
 // when updating the webpage the menu doesn't retrieve
 // clicking it manually is the most straightforward solution
 const clickEvent = new MouseEvent("click", {
@@ -107,6 +106,10 @@ function getLoadingGif() {
             <img src="/assets/css/loading.gif" alt="loading...">
         </span>
     `;
+}
+
+function setTitle(text) {
+    document.getElementById("title").innerText = text;
 }
 
 // https://developer.mozilla.org/en-US/docs/Web/API/DOMParser

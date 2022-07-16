@@ -4,12 +4,15 @@ function postsAPI(switcher, content) {
     // to receive the actual content of a post see 'postContentAPi'
     switch(switcher) {
         case "homepage":
+            setTitle("Gabriele Boccarusso's official website");
             homepage();
             break;
         case "byTag":
+            setTitle("Tag: " + content);
             byTag(content);
             break;
         case "byTitle":
+            setTitle("Looking for " + content);
             byTitle(content);
             break;
     }
@@ -94,6 +97,7 @@ function postsAPI(switcher, content) {
 }
 
 function ProjectsAPI() {
+    setTitle("All projects");
     const projectsPlace = document.getElementById('projects');
 
     fetch("https://boccarussoapi.herokuapp.com/projectsDescending")
@@ -124,6 +128,7 @@ function tagsAPI(switcher, unrefinedTags = null) {
             options();
             break;
         case "all":
+            setTitle("All tags");
             allTags();
             break;
     }
@@ -177,6 +182,7 @@ function postContentAPi(slug) {
     .then(b => makePost(b));
 
     function makePost(post) {
+        setTitle(post.title + " - Gabriele Boccarusso");
         tags = makeTags(post.tags);
         place.innerHTML += `
         <div style="width: 70%; margin: 0 auto">
