@@ -27,7 +27,7 @@ function postsAPI(switcher, content) {
         async function getPosts() {
             if (max == 0) {
                 max = await fetch("https://boccarussoapi.herokuapp.com/posts/maxId").then(x => x.json());
-                console.log(max);
+                // console.log(max);
                 end = max;
                 begin = end-2;
             }
@@ -68,7 +68,7 @@ function postsAPI(switcher, content) {
         .then(a => a.json())
         .then(b => {
             if (b.length == 0) {
-                place.innerHTML += "<h2>Your search for  has produced no results</h2>";
+                place.innerHTML += "<h2>Your search has produced no results</h2>";
             } else {
                 b.forEach(c => appendArticles(c, place));
             }
@@ -212,11 +212,12 @@ function postContentAPi(slug) {
         </div>
         `;
         const article = document.getElementById("article");
-        article.innerHTML = "loading...";
+        article.innerHTML = getLoadingGif();
         let proxyCORS = "https://corsproxy.io/?";
         fetch(proxyCORS + "https://drive.google.com/uc?id=" + post.content)
         .then(a => a.text())
-        .then(b => article.innerHTML = b);
+        .then(b => article.innerHTML = b)
+        .catch(error => article.innerHTML = "<h2>There was an error getting the data.<br>Try to reload the page</h2>");
     }
     
     function makeTags(unrefined) {

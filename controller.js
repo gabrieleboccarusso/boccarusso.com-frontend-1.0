@@ -20,19 +20,17 @@ function controller() {
     // the content not visible 'cause at the top
     $('html, body').animate({ scrollTop: 0 }, 'fast');
 
+    main.innerHTML = "";
     switch(splitted[3]) {
         case "":
-            main.innerHTML = "";
             main.innerHTML += getAboutMe();
             postsAPI("homepage");
             break;
         case "projects":
-            main.innerHTML = "";
             main.innerHTML += getProjects();
             ProjectsAPI();
             break;
         case "tags":
-            main.innerHTML = "";
             if(splitted[4]) {
                 main.innerHTML += getPostsByTag(splitted[4]);
                 postsAPI("byTag", splitted[4]);
@@ -42,12 +40,10 @@ function controller() {
             }
             break;
         case "search":
-            main.innerHTML = "";
             main.innerHTML += getPostsByTitle(splitted[4]);
             postsAPI("byTitle", splitted[4]);
             break;
         case "post":
-            main.innerHTML = "";
             postContentAPi(splitted[4]);
             break;
     }
@@ -103,6 +99,14 @@ function redirectSelectedTag() {
 function redirectSinglePost(title) {
     window.history.pushState({}, '', "/post/" + title);
     controller();
+}
+
+function getLoadingGif() {
+    return `
+        <span class="image main">
+            <img src="/assets/css/loading.gif" alt="loading...">
+        </span>
+    `;
 }
 
 // https://developer.mozilla.org/en-US/docs/Web/API/DOMParser
