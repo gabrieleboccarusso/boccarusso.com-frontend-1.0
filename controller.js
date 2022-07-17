@@ -22,6 +22,7 @@ function controller() {
     $('html, body').animate({ scrollTop: 0 }, 'fast');
 
     main.innerHTML = "";
+    document.getElementById('content').style="";
     switch(splitted[3]) {
         case "":
             main.innerHTML += getAboutMe();

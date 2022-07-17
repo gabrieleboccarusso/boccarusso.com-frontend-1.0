@@ -186,6 +186,9 @@ function tagsAPI(switcher, unrefinedTags = null) {
 function postContentAPi(slug) {
     const place = document.getElementById("content");
     const head = document.getElementsByTagName("head")[0];
+    if (window.innerWidth > 640) {
+        document.getElementById('content').style =`width: 70%; margin: 0 auto`;
+    }
 
     fetch("https://boccarussoapi.herokuapp.com/posts/getBySlug/" + slug)
     .then(a => a.json())
@@ -196,7 +199,7 @@ function postContentAPi(slug) {
         setTitle(post.title + " - Gabriele Boccarusso");
         tags = makeTags(post.tags);
         place.innerHTML += `
-            <div style="width: 70%; margin: 0 auto">
+            <div>
             <h1 style="text-align:center">${post.title}</h1>
             <hr>
             <p style="text-align:center">
@@ -229,6 +232,10 @@ function postContentAPi(slug) {
             -->
             </div>
         `;
+        let imgs = document.getElementsByTagName("img");
+        for (let i = 0; i < imgs.length; i++) {
+            imgs[i].className = "image main";
+        };
     }
 
     function makeHead(post) {
