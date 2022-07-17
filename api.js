@@ -20,19 +20,31 @@ function postsAPI(switcher, content) {
     function homepage() {
         const postsBox = document.getElementById('blog');
         const spinnerBox = document.getElementById('spinner-box');
-        const loadBtn = document.getElementById('load-btn');
+        const loadMore = document.getElementById('btn-parent');
+        let loadBtn;
     
         let max = 0;
         let end;
         let begin;
     
-            
+        postsBox.innerHTML = getLoadingHome();
+        
         async function getPosts() {
             if (max == 0) {
                 max = await fetch("https://boccarussoapi.herokuapp.com/posts/maxId").then(x => x.json());
                 // console.log(max);
                 end = max;
                 begin = end-2;
+            }
+            postsBox.innerHTML = "";
+            loadMore.innerHTML += `
+            <button id="load-btn">Load more</button>
+            `;
+            if (end > 0) {
+                loadBtn = document.getElementById('load-btn');
+                loadBtn.addEventListener('click', () => {
+                    getThreeLastPost();
+                })
             }
             getThreeLastPost();
             
@@ -49,9 +61,6 @@ function postsAPI(switcher, content) {
             if(end <= 0) { loadBtn.remove(); }
         } 
     
-        loadBtn.addEventListener('click', () => {
-            getThreeLastPost();
-        })
     }
 
     function byTag(tag) {

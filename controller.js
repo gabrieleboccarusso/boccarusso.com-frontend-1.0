@@ -102,11 +102,17 @@ function redirectSinglePost(title) {
     controller();
 }
 
-function getLoadingGif() {
+function getLoadingHome() {
     return `
-        <span class="image main">
-            <img src="/assets/css/loading.gif" alt="loading...">
-        </span>
+        <article>
+        </article>
+        <article>
+            <span class="image">
+                <img src="/assets/css/loading.gif" alt="cover">
+            </span>
+        </article>
+        <article>
+        </article>
     `;
 }
 
@@ -169,8 +175,7 @@ function getAboutMe() {
     </section>
     <br>
     <br>
-    <div style = "display:flex; justify-content: center;" id = "btn-parent">
-        <button id="load-btn">Load more</button>
+    <div style = "display:flex; justify-content: center;" id ="btn-parent">
     </div>
     `
 }
@@ -207,17 +212,3 @@ function getPostsByTitle(title) {
     `
 }
 
-/*
-function addBaseStyle(style) {
-    const link = document.createElement("link");
-    link.setAttribute("rel", "canonical");
-    link.setAttribute("href", "http://www.boccarusso.com/");
-    const meta = document.createElement("meta");
-    meta.setAttribute("name", "description");
-    meta.setAttribute("content", "Official website of Gabriele Boccarusso, European developer writing about informatics and various topics");
-
-    style.appendChild(title);
-    style.appendChild(link);
-    style.appendChild(meta);
-}
-*/
