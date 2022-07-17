@@ -186,6 +186,11 @@ function tagsAPI(switcher, unrefinedTags = null) {
 function postContentAPi(slug) {
     const place = document.getElementById("content");
     const head = document.getElementsByTagName("head")[0];
+    place.innerHTML = `
+        <span class="image">
+            <img src="/assets/css/loading.gif" alt="cover">
+        </span>
+    `;
     if (window.innerWidth > 640) {
         document.getElementById('content').style =`width: 70%; margin: 0 auto`;
     }
@@ -195,6 +200,7 @@ function postContentAPi(slug) {
     .then(b => makePost(b));
 
     function makePost(post) {
+        place.innerHTML = "";
         makeHead(post);
         setTitle(post.title + " - Gabriele Boccarusso");
         tags = makeTags(post.tags);
