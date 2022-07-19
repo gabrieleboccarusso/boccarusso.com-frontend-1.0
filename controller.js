@@ -103,7 +103,9 @@ function redirectSinglePost(title) {
     controller();
 }
 
-function getLoadingHome() {
+// showing the gif like this is the easier
+// way to make it responsive and not too big
+function getLoadingGif() {
     return `
         <article>
         </article>
@@ -184,8 +186,6 @@ function getAboutMe() {
 function getSelectTag() {
     return `
         <h1>All tags:</h1>
-        <ul id="tags" class="actions container-tag">
-        </ul>
     `;
 }
 

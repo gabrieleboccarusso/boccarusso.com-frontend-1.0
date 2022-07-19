@@ -27,7 +27,7 @@ function postsAPI(switcher, content) {
         let end;
         let begin;
     
-        postsBox.innerHTML = getLoadingHome();
+        postsBox.innerHTML = getLoadingGif();
         
         async function getPosts() {
             if (max == 0) {
@@ -108,10 +108,14 @@ function postsAPI(switcher, content) {
 function ProjectsAPI() {
     setTitle("All projects");
     const projectsPlace = document.getElementById('projects');
+    projectsPlace.innerHTML = getLoadingGif();
 
     fetch("https://boccarussoapi.herokuapp.com/projectsDescending")
     .then(a => a.json())
-    .then(b => b.forEach(appendProjects))
+    .then(b => {
+        projectsPlace.innerHTML = "";
+        b.forEach(appendProjects)
+    })
 
     function appendProjects(project) {
         text = `
