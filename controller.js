@@ -136,13 +136,18 @@ function sendMail() {
 // https://developer.mozilla.org/en-US/docs/Web/API/DOMParser
 function getAboutMe() {
     return `
-    <h1 class="primary">GABRIELE BOCCARUSSO</h1>
-    <h2>Software Developer</h2>
+    <h1 class="primary">
+        GABRIELE BOCCARUSSO
+        <br>
+        Software engineer &#38; technical writer
+    </h1>
+    <!--
     <ul class="actions container-tag">
         <li><a class="button primary icon solid" href="#about-me">about me</a></li>
         <li><a class="button primary icon solid" href="#blog">blog</a></li>
         <li><a class="button primary icon solid" href="#contact-me">contact me</a></li>
     </ul>
+    -->
     <span class="image main under" id="about-me">
     <picture>
     <source media="(min-width: 737px)" srcset="https://i.ibb.co/fdFgDxK/banner.png">
