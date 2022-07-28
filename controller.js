@@ -7,14 +7,11 @@ const clickEvent = new MouseEvent("click", {
     "cancelable": false
 });
 
-// https://formsubmit.co/9c89e8aa57888c949d4ad490921b2430
 
 function controller() { 
     let baseURL = window.location.href;
     const splitted = baseURL.split('/');
-    // const style = document.getElementsByTagName("head")[0];
     const main = document.getElementById('content');
-    // const body  = document.getElementsByTagName("body")[0];
 
     // everytime the page gets (between a lot of quotes) "reloaded"
     // it stays at the same place cauing the possibilities of having
@@ -191,6 +188,8 @@ function getAboutMe() {
 function getSelectTag() {
     return `
         <h1>All tags:</h1>
+        <section id="tags" class="tiles">
+        </section>
     `;
 }
 
