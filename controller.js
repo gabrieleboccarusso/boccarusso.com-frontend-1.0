@@ -45,6 +45,9 @@ function controller() {
         case "post":
             postContentAPi(splitted[4]);
             break;
+        default:
+            console.log("default");
+            break;
     }
 }
 
@@ -188,8 +191,8 @@ function getAboutMe() {
 function getSelectTag() {
     return `
         <h1>All tags:</h1>
-        <section id="tags" class="tiles">
-        </section>
+        <ul id="tags" class="actions container-tag">
+        </ul>
     `;
 }
 

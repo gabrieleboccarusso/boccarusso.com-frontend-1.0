@@ -1,3 +1,5 @@
+const api_basic_url = "https://test-prod-test-3mkxu2.mo1.mogenius.io";
+
 function postsAPI(switcher, content) {
     // PostsAPI is a closure which only purpose is to retrieve posts 
     // from the database through the API *only as ckiclable items*
@@ -31,7 +33,7 @@ function postsAPI(switcher, content) {
         
         async function getPosts() {
             if (max == 0) {
-                max = await fetch("https://boccarussoapi.herokuapp.com/posts/maxId").then(x => x.json());
+                max = await fetch(api_basic_url + "/posts/maxId").then(x => x.json());
                 // console.log(max);
                 end = max;
                 begin = end-2;
@@ -51,7 +53,7 @@ function postsAPI(switcher, content) {
         }getPosts()
         
         async function getThreeLastPost() {
-            fetch("https://boccarussoapi.herokuapp.com/posts/between/"+begin+"/"+end)
+            fetch(api_basic_url + "/posts/between/"+begin+"/"+end)
             .then(a => a.json())
             .then(b => b.forEach(
                 c => appendArticles(c, postsBox)
@@ -66,7 +68,7 @@ function postsAPI(switcher, content) {
     function byTag(tag) {
         const place = document.getElementById('postsByTag');
 
-        fetch("https://boccarussoapi.herokuapp.com/posts/getByTag/" + tag)
+        fetch(api_basic_url + "/posts/getByTag/" + tag)
         .then(a => a.json())
         .then(b => b.forEach(
             c => appendArticles(c, place)
@@ -76,7 +78,7 @@ function postsAPI(switcher, content) {
     function byTitle(title) {
         const place = document.getElementById('postsByTitle');
 
-        fetch("https://boccarussoapi.herokuapp.com/posts/getByTitle/" + title)
+        fetch(api_basic_url + "/posts/getByTitle/" + title)
         .then(a => a.json())
         .then(b => {
             if (b.length == 0) {
@@ -110,7 +112,7 @@ function ProjectsAPI() {
     const projectsPlace = document.getElementById('projects');
     projectsPlace.innerHTML = getLoadingGif();
 
-    fetch("https://boccarussoapi.herokuapp.com/projectsDescending")
+    fetch(api_basic_url + "/projectsDescending")
     .then(a => a.json())
     .then(b => {
         projectsPlace.innerHTML = "";
@@ -148,7 +150,7 @@ function tagsAPI(switcher, unrefinedTags = null) {
 
     function allTags() {
         const place = document.getElementById('tags');
-        let api = "https://boccarussoapi.herokuapp.com/tags";
+        let api = api_basic_url + "/tags";
     
         fetch(api)
         .then(a => a.json())
@@ -159,8 +161,9 @@ function tagsAPI(switcher, unrefinedTags = null) {
 
     function options() {
         const place = document.getElementById('selectTag');
+        place.innerHTML += "";
     
-        fetch("https://boccarussoapi.herokuapp.com/tags")
+        fetch(api_basic_url + "/tags")
         .then(a => a.json())
         .then(b => b.forEach(
             c => appendOptionTag(c, place)
@@ -199,7 +202,7 @@ function postContentAPi(slug) {
         document.getElementById('content').style =`width: 70%; margin: 0 auto`;
     }
 
-    fetch("https://boccarussoapi.herokuapp.com/posts/getBySlug/" + slug)
+    fetch(api_basic_url + "/posts/getBySlug/" + slug)
     .then(a => a.json())
     .then(b => makePost(b));
 
