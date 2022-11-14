@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>  
+        <title id="title"></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+        <noscript><link rel="stylesheet" type="text/css" href="/assets/css/noscript.css" /></noscript>
+        <link rel="shortcut icon" type="image/png" href="/assets/favicon/fav.ico"/>
+	</head>
+
+	<body class="is-preload">
+        <div id="wrapper">
+            <header id="header">
+                <div class="inner">
+                    <nav>
+                        <ul>
+                            <li><a id="menuButton">Menu</a></li>
+                        </ul>
+                    </nav>
+                    <div id="menu">
+                        <h2>Hub</h2>
+                        <ul>
+                            <li>
+                                <form action="#" onkeydown="return (event.keyCode!=13);">
+                                    <input type="text" name="q" placeholder="search a post">
+                                    <br>
+                                    <input onclick="searchPost()" class="second" type="button" value="Search" id ="searchButton">
+                                </form>
+                            </li>
+                            <li onclick="redirectHome()"><a class="notClick">Home</a></li>
+                            <li onclick="redirectProjects()"><a class="notClick">Projects</a></li>
+                            <li onclick="redirectTags()"><a class="notClick">tags</a></li>
+                            <li>
+                                <select id="selectTag" onchange="redirectSelectedTag()">
+                                    <option value="">Select tag</option>
+                                </select>
+                            </li>                           
+                        </ul>
+                    </div>
+                </div>		
+			</header>
+            <main id="main">
+                <div class="inner" id="content">
+                </div>
+            </main>
+
+            <footer id="footer">
+                <div class="inner" id="contact-me">
+                    <form id="emailForm">
+                        <input type="hidden" name="_next" value="">
+                        <h2><span class="black">Contact me</span></h2>
+                        <div class="fields">
+                            <div class="field half">
+                                <input style="background-color: black;" type="text" placeholder="Subject" id="subject" required>
+                            </div>
+                            <div class="field half">
+                                <input style="background-color: black;" type="email" placeholder="Email" id="email" required>
+                            </div>
+                            <div class="field">
+                                <div class="textarea-wrapper">
+                                    <textarea style="background-color: black;" cols="1" rows="1" placeholder="Message" id="message" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <ul class="actions">
+                            <li>
+                                <input onclick="sendMail()" type="button" value="Send" class="primary" id = "submitButton">
+                            </li>
+                            <li >
+                                <p style="background-color: black;" id="emailResult"></p>
+                            </li>
+                            
+                        </ul>
+                    </form>
+                    <section>
+                        <h2><span class="black">Follow me</span></h2>
+                        <ul class="icons">
+                            <li><a href="https://github.com/gabrieleboccarusso"  class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+                            <li><a href="https://www.linkedin.com/in/gabrieleboccarusso/" class="icon brands style2 fa-linkedin"><span class="label">Linkedin</span></a></li>
+                            <li><a href="https://stackoverflow.com/users/14915181/gabriele-boccarusso" class="icon brands style2 fa-stack-overflow"><span class="label">Stack Overflow</span></a></li>
+                            <li><a href="https://medium.com/@gabrieleboccarusso" class="icon brands style2 fa-medium"><span class="label">Medium</span></a></li>
+                            <li><a href="https://dev.to/gabrieleboccarusso" class="icon brands style2 fa-dev"><span class="label">Dev</span></a></li>
+                        </ul>
+                        <ul class="credits">
+                            <li><span>Gabriele Boccarusso &reg; All rights reserved</span></li>
+                        </ul>
+                        <br>
+                    </section>
+                    
+                </div>
+            </footer>
+        </div>
+    
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/browser.min.js"></script>
+        <script src="/assets/js/breakpoints.min.js"></script>
+        <script src="/assets/js/main.js"></script>
+        <script src="/api.js"></script>
+        <script src="/controller.js"></script>
+        <script>
+            let img = document.getElementById("main-img");
+            let imgs = document.getElementsByTagName("img");
+            let main = document.getElementById("main");
+
+            for (let i = 0; i < imgs.length; i++) {
+                imgs[i].className = "image main";
+            };
+
+            if (window.innerWidth < 640) {
+                main.style.width = "";
+                main.style.margin = "";
+            };
+        </script>
+	</body>
+</html>
