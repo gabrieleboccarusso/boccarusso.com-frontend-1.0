@@ -112,7 +112,7 @@ function ProjectsAPI() {
     const projectsPlace = document.getElementById('projects');
     projectsPlace.innerHTML = getLoadingGif();
 
-    fetch(api_basic_url + "/projectsDescending")
+    fetch(api_basic_url + "/projects/descending")
     .then(a => a.json())
     .then(b => {
         projectsPlace.innerHTML = "";
