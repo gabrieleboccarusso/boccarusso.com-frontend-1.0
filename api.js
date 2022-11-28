@@ -1,4 +1,4 @@
-const api_basic_url = "https://test-prod-test-3mkxu2.mo1.mogenius.io";
+const api_basic_url = "https://boccarusso-api-prod-test-3mkxu2.mo1.mogenius.io";
 
 function postsAPI(switcher, content) {
     // PostsAPI is a closure which only purpose is to retrieve posts 
