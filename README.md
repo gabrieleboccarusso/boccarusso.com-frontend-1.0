@@ -1,6 +1,6 @@
 # Frontend of Boccarusso.com
 
-This project contains version 1.0 of the frontend for my website [boccarusso.com](https://boccarusso.com/).
+This project contains version 2.0 of the frontend for my website [boccarusso.com](https://boccarusso.com/).
 
 This code was done when I had no absolute knowledge about frontend and instead of getting informed a minimum I have re-invented the wheel by creating a basic [router](https://github.com/gabrieleboccarusso/boccarussofrontend/blob/main/controller.js) and some [apis switchers](https://github.com/gabrieleboccarusso/boccarussofrontend/blob/main/api.js) from scratch. I was actually really surprised of the many things that was possible to do with JavaScript.
 
